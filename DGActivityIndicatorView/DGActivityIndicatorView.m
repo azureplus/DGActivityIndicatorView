@@ -80,16 +80,29 @@ static const CGFloat kDGActivityIndicatorDefaultSize = 40.0f;
     }
 }
 
-- (void)startAnimating {
+- (void)startAnimating
+{
     if (!self.layer.sublayers) {
         [self setupAnimation];
     }
     self.layer.speed = 1.0f;
+    CALayer* layer = self.layer;
+    CFTimeInterval pausedTime = [layer timeOffset];
+    layer.speed = 1.0;
+    layer.timeOffset = 0.0;
+    layer.beginTime = 0.0;
+    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+    layer.beginTime = timeSincePause;
     _animating = YES;
 }
 
-- (void)stopAnimating {
+- (void)stopAnimating
+{
     self.layer.speed = 0.0f;
+    CALayer* layer = self.layer;
+    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
+    layer.speed = 0.0;
+    layer.timeOffset = pausedTime;
     _animating = NO;
 }
 

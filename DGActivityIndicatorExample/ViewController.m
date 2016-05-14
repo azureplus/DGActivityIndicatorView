@@ -19,7 +19,8 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:237/255.0f green:85/255.0f blue:101/255.0f alpha:1.0f];
     
-    NSArray *activityTypes = @[@(DGActivityIndicatorAnimationTypeNineDots), @(DGActivityIndicatorAnimationTypeTriplePulse),
+    NSArray
+    *activityTypes = @[@(DGActivityIndicatorAnimationTypeNineDots), @(DGActivityIndicatorAnimationTypeTriplePulse),
                                @(DGActivityIndicatorAnimationTypeFiveDots), @(DGActivityIndicatorAnimationTypeRotatingSquares),
                                @(DGActivityIndicatorAnimationTypeDoubleBounce), @(DGActivityIndicatorAnimationTypeTwoDots),
                                @(DGActivityIndicatorAnimationTypeThreeDots),
@@ -53,7 +54,7 @@
         DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:(DGActivityIndicatorAnimationType)[activityTypes[i] integerValue] tintColor:[UIColor whiteColor]];
         CGFloat width = self.view.bounds.size.width / 6.0f;
         CGFloat height = self.view.bounds.size.height / 6.0f;
-
+        NSLog(@"%@",activityTypes[i]);
         activityIndicatorView.frame = CGRectMake(width * (i % 6), height * (int)(i / 6), width, height);
         [self.view addSubview:activityIndicatorView];
         [activityIndicatorView startAnimating];
