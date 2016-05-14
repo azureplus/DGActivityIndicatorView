@@ -85,7 +85,6 @@ static const CGFloat kDGActivityIndicatorDefaultSize = 40.0f;
     if (!self.layer.sublayers) {
         [self setupAnimation];
     }
-    self.layer.speed = 1.0f;
     CALayer* layer = self.layer;
     CFTimeInterval pausedTime = [layer timeOffset];
     layer.speed = 1.0;
@@ -98,7 +97,6 @@ static const CGFloat kDGActivityIndicatorDefaultSize = 40.0f;
 
 - (void)stopAnimating
 {
-    self.layer.speed = 0.0f;
     CALayer* layer = self.layer;
     CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
     layer.speed = 0.0;
