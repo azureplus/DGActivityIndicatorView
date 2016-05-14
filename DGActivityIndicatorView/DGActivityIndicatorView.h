@@ -57,5 +57,5 @@ typedef NS_ENUM(NSUInteger, DGActivityIndicatorAnimationType) {
 
 - (void)startAnimating;
 - (void)stopAnimating;
-
+- (void)pauseAnimating;
 @end

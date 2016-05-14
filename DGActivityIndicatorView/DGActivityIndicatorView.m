@@ -44,7 +44,9 @@
 static const CGFloat kDGActivityIndicatorDefaultSize = 40.0f;
 
 @implementation DGActivityIndicatorView
-
+{
+    BOOL isPause;
+}
 #pragma mark -
 #pragma mark Constructors
 
@@ -85,6 +87,36 @@ static const CGFloat kDGActivityIndicatorDefaultSize = 40.0f;
     if (!self.layer.sublayers) {
         [self setupAnimation];
     }
+    if(!isPause)
+    {
+       self.layer.speed = 1.0f;
+    }
+    else
+    {
+        [self resumeAnimating];
+    }
+    _animating = YES;
+    isPause = NO;
+}
+
+- (void)stopAnimating
+{
+   self.layer.speed = 0.0f;
+    _animating = NO;
+    isPause = NO;
+}
+
+-(void)pauseAnimating
+{
+    CALayer* layer = self.layer;
+    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
+    layer.speed = 0.0;
+    layer.timeOffset = pausedTime;
+    isPause = YES;
+}
+
+-(void)resumeAnimating
+{
     CALayer* layer = self.layer;
     CFTimeInterval pausedTime = [layer timeOffset];
     layer.speed = 1.0;
@@ -92,17 +124,8 @@ static const CGFloat kDGActivityIndicatorDefaultSize = 40.0f;
     layer.beginTime = 0.0;
     CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
     layer.beginTime = timeSincePause;
-    _animating = YES;
 }
 
-- (void)stopAnimating
-{
-    CALayer* layer = self.layer;
-    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
-    layer.speed = 0.0;
-    layer.timeOffset = pausedTime;
-    _animating = NO;
-}
 
 #pragma mark -
 #pragma mark Setters
